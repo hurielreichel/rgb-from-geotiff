@@ -22,9 +22,6 @@ Created on Fri Oct  9 10:08:28 2020
 
 @author: huriel
 """
-pm_input = '/home/huriel/Documents/swisstopo/smallrst.tif'
-pm_output = '/home/huriel/Documents/swisstopo/smallrst_t3.uv3'
-
 from osgeo import gdal
 from struct import *
 
@@ -35,34 +32,22 @@ import os
 import glob
 import numpy as np
 
-#PM_R2D = ( 180. / math.pi )
-
 def pm_assign_rgb( pm_input, pm_output, pm_raster_r, pm_raster_g, pm_raster_b, pm_x, pm_y, pm_pw, pm_ph, pm_nodata, pm_w, pm_h):
     
              # create output stream #
        with open( pm_output, mode='wb' ) as uv3:
 
-            # processing loop #
-         
-
-                    # compute raster position #
-                    #pm_rx = ( pm_parts[0] * PM_R2D - pm_x ) / pm_pw
-                    #pm_ry = ( pm_y - pm_parts[1] * PM_R2D ) / pm_ph
-
-                    #pm_rx = ( pm_parts[0] * PM_R2D - pm_x ) / pm_pw
-                    #pm_ry = ( pm_y - pm_parts[1] * PM_R2D ) / pm_ph
-                    
-     
-                    for x in range(pm_width):
-                        for y in range(pm_height):
-                            pm_r = pm_raster_r[y][x]
-                            pm_g = pm_raster_g[y][x]
-                            pm_b = pm_raster_b[y][x]
-                            pm_rx = ( x / pm_width ) * pm_pw + pm_x
-                            pm_ry = pm_y - ( y / pm_height ) * pm_ph
-                            pm_buffer = pack( '<dddBBBB', pm_rx, pm_ry, 0, 1, pm_r, pm_g, pm_b )
-                            uv3.write( pm_buffer )
-                            #print( pm_rx, pm_ry, 0, 1, pm_r, pm_g, pm_b )
+          # compute raster position #
+          for x in range(pm_width):
+              for y in range(pm_height):
+                  pm_r = pm_raster_r[y][x]
+                  pm_g = pm_raster_g[y][x]
+                  pm_b = pm_raster_b[y][x]
+                  pm_rx = ( ( x * pm_pw ) + pm_x ) * ( math.pi/180 )
+                  pm_ry = ( pm_y - ( y * pm_ph ) ) * ( math.pi/180 )
+                  pm_buffer = pack( '<dddBBBB', pm_rx, pm_ry, 0, 1, pm_r, pm_g, pm_b )
+                  uv3.write( pm_buffer )
+                  #print( pm_rx, pm_ry, 0, 1, pm_r, pm_g, pm_b ) # in chase you want to print results as the former Octave code
 
 #
 #   source - main function
@@ -82,7 +67,8 @@ pm_args = pm_argparse.parse_args()
 gdal.UseExceptions()
 
 # GDAL open geotiff file #
-pm_geotiff = gdal.Open( pm_input )
+pm_geotiff = gdal.Open( pm_args.input )
+#pm_geotiff = gdal.Open( pm_input ) #in chase of working inside a GUI
 
 # retrieve raster data #
 pm_band_r = pm_geotiff.GetRasterBand(1)
