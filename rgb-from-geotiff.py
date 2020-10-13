@@ -20,7 +20,6 @@
 
 from osgeo import gdal
 from struct import *
-from progressbar import ProgressBar
 
 import argparse
 import math
@@ -28,10 +27,7 @@ import sys
 import os
 import numpy as np
 
-bar = ProgressBar().start()
 def pm_assign_rgb( pm_input, pm_output, pm_raster_r, pm_raster_g, pm_raster_b, pm_x, pm_y, pm_pw, pm_ph, pm_nodata, pm_w, pm_h): 
-    
-    for i in bar(range(100)):    
     
         # create output stream #
         with open( pm_output, mode='wb' ) as uv3:
@@ -42,14 +38,10 @@ def pm_assign_rgb( pm_input, pm_output, pm_raster_r, pm_raster_g, pm_raster_b, p
                    pm_r = pm_raster_r[y][x]
                    pm_g = pm_raster_g[y][x]
                    pm_b = pm_raster_b[y][x]
-                   bar.update((1/5)*100)
                    pm_rx = ( ( x * pm_pw ) + pm_x ) * ( math.pi/180 )
                    pm_ry = ( pm_y - ( y * pm_ph ) ) * ( math.pi/180 )
-                   bar.update((2/5)*100)
                    pm_buffer = pack( '<dddBBBB', pm_rx, pm_ry, 0, 1, pm_r, pm_g, pm_b )
-                   bar.update((3/5)*100)
                    uv3.write( pm_buffer )
-                   bar.update((4/5)*100)
                    #print( pm_rx, pm_ry, 0, 1, pm_r, pm_g, pm_b ) # in chase you want to print results as the former Octave code
                 
 #
@@ -112,7 +104,5 @@ print( 'Processing file : ' + os.path.basename( pm_args.input ) + '...' )
 # process file #
 pm_assign_rgb( pm_args.input, pm_args.output, pm_raster_r, pm_raster_g, pm_raster_b, pm_x, pm_y, pm_pw, pm_ph, pm_nodata, pm_width, pm_height )
 
-bar.update((5/5)*100)
 # exit script #
 sys.exit( 'Done' )
-bar.finish()
