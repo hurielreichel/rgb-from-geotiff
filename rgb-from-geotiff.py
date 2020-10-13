@@ -17,11 +17,7 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
-Created on Fri Oct  9 10:08:28 2020
 
-@author: huriel
-"""
 from osgeo import gdal
 from struct import *
 from progress.bar import ShadyBar
