@@ -24,6 +24,7 @@ Created on Fri Oct  9 10:08:28 2020
 """
 from osgeo import gdal
 from struct import *
+from progress.bar import ShadyBar
 
 import argparse
 import math
@@ -31,6 +32,7 @@ import sys
 import os
 import glob
 import numpy as np
+import progress
 
 def pm_assign_rgb( pm_input, pm_output, pm_raster_r, pm_raster_g, pm_raster_b, pm_x, pm_y, pm_pw, pm_ph, pm_nodata, pm_w, pm_h):
     
@@ -107,7 +109,12 @@ if pm_nodata is not None:
 print( 'Processing file : ' + os.path.basename( pm_args.input ) + '...' )
 
 # process file #
-pm_assign_rgb( pm_args.input, pm_args.output, pm_raster_r, pm_raster_g, pm_raster_b, pm_x, pm_y, pm_pw, pm_ph, pm_nodata, pm_width, pm_height )
+bar = ShadyBar('Processing', max=100)
+for i in range(100):
+    pm_assign_rgb( pm_args.input, pm_args.output, pm_raster_r, pm_raster_g, pm_raster_b, pm_x, pm_y, pm_pw, pm_ph, pm_nodata, pm_width, pm_height )
+    bar.next()
+bar.finish()
+
 
 # exit script #
 sys.exit( 'Done' )
