@@ -7,7 +7,7 @@ This code converts RGB geotiff into the UV3 file format. The most important is t
 Open the terminal where this code was cloned or downloaded (with cd path/to/directory) and use:
 
 ```
-$ python3 rgb-from-geotiff -i /home/user/path/to/geotiff.tif -o /home/user/path/to/output.uv3
+$ python3 rgb-from-geotiff.py -i /home/user/path/to/geotiff.tif -o /home/user/path/to/output.uv3
 ```
 # Copyright and License
 
