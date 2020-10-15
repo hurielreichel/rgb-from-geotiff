@@ -20,6 +20,7 @@
 
 from osgeo import gdal
 from struct import *
+from tqdm import tqdm
 
 import argparse
 import math
@@ -102,7 +103,8 @@ if pm_nodata is not None:
 print( 'Processing file : ' + os.path.basename( pm_args.input ) + '...' )
 
 # process file #
-pm_assign_rgb( pm_args.input, pm_args.output, pm_raster_r, pm_raster_g, pm_raster_b, pm_x, pm_y, pm_pw, pm_ph, pm_nodata, pm_width, pm_height )
+for i in tqdm(range(100)):
+    pm_assign_rgb( pm_args.input, pm_args.output, pm_raster_r, pm_raster_g, pm_raster_b, pm_x, pm_y, pm_pw, pm_ph, pm_nodata, pm_width, pm_height )
 
 # exit script #
 sys.exit( 'Done' )
