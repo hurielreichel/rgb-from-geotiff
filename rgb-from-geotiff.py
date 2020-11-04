@@ -3,7 +3,7 @@
 #
 #     Nils Hamel - nils.hamel@bluewin.ch
 #     Huriel Reichel - huriel.ruan@gmail.com
-#     Copyright (c) 2020 STDL, Swiss Territorial Data Lab
+#     Copyright (c) 2020 Republic and Canton of Geneva
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from osgeo import gdal
-from struct import *
+from struct import pack
 from tqdm import tqdm
 
 import argparse
