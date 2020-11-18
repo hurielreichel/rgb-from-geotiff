@@ -39,6 +39,13 @@ def pm_assign_rgb( pm_input, pm_output, pm_raster_r, pm_raster_g, pm_raster_b, p
                    pm_r = pm_raster_r[y][x]
                    pm_g = pm_raster_g[y][x]
                    pm_b = pm_raster_b[y][x]
+                   
+                   if (pm_r < 0 or pm_g < 0 or pm_b < 0):
+                       
+                       pm_r = 7
+                       pm_g = 10
+                       pm_b = 12
+                       
                    pm_rx = ( ( x * pm_pw ) + pm_x ) * ( math.pi/180 )
                    pm_ry = ( pm_y - ( y * pm_ph ) ) * ( math.pi/180 )
                    pm_buffer = pack( '<dddBBBB', pm_rx, pm_ry, 0, 1, pm_r, pm_g, pm_b )
@@ -97,7 +104,7 @@ pm_raster = np.array([[pm_raster_r], [pm_raster_g], [pm_raster_b]])
 if pm_nodata is not None:   
 
     # replace no data value #
-    pm_raster = np.where( pm_raster == int( pm_nodata), int( 0 ), pm_raster )
+    pm_raster = np.where( pm_raster == int (pm_nodata), int( 0 ), pm_raster)
 
 # display message #
 print( 'Processing file : ' + os.path.basename( pm_args.input ) + '...' )
