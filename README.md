@@ -9,6 +9,22 @@ Open the terminal where this code was cloned or downloaded (with cd path/to/dire
 ```
 $ python3 rgb-from-geotiff.py -i /home/user/path/to/geotiff.tif -o /home/user/path/to/output.uv3
 ```
+
+## Examples
+
+Following there are some injections in the Eratosthene platform of RGB imagery. The first example is the landsat of Switzerlands area.
+
+![](landsat.png)
+
+Another low resolution example is the Sentinel Imagery in Frauenfeld's area.
+
+![](sentinel.png)
+
+Finally, to conclude those examples with high resolution data, this is an image from SITG, in Geneva's Downtown.
+![](geneva.png)
+
+![](geneva_zoom.png)
+
 # Copyright and License
 
 **rgb-from-geotiff** - Nils Hamel, Huriel Reichel <br >
