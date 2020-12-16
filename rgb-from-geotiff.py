@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 #  rgb-from-geotiff
 #
-#     Nils Hamel - nils.hamel@bluewin.ch
 #     Huriel Reichel - huriel.ruan@gmail.com
+#     Nils Hamel - nils.hamel@bluewin.ch
 #     Copyright (c) 2020 Republic and Canton of Geneva
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,6 @@
 
 from osgeo import gdal
 from struct import pack
-from tqdm import tqdm
 
 import argparse
 import math
@@ -62,6 +61,9 @@ pm_argparse = argparse.ArgumentParser()
 # argument and parameter directive #
 pm_argparse.add_argument( '-i', '--input', type=str  , help='geotiff path'    )
 pm_argparse.add_argument( '-o', '--output' , type=str  , help='uv3 output path' )
+pm_argparse.add_argument( '-r', '--red' , type=int, default=1, help='integer refering to the number of the band to replace (or not) the red band, default being 1' )
+pm_argparse.add_argument( '-g', '--green' , type=int, default=2, help='integer refering to the number of the band to replace (or not) the green band, default being 2' )
+pm_argparse.add_argument( '-b', '--blue' , type=int, default=3, help='integer refering to the number of the band to replace (or not) the blue band, default being 3' )
 
 # read argument and parameters #
 pm_args = pm_argparse.parse_args()
@@ -74,9 +76,9 @@ pm_geotiff = gdal.Open( pm_args.input )
 #pm_geotiff = gdal.Open( pm_input ) #in chase of working inside a GUI
 
 # retrieve raster data #
-pm_band_r = pm_geotiff.GetRasterBand(1)
-pm_band_g = pm_geotiff.GetRasterBand(2)
-pm_band_b = pm_geotiff.GetRasterBand(3)
+pm_band_r = pm_geotiff.GetRasterBand(pm_args.red)
+pm_band_g = pm_geotiff.GetRasterBand(pm_args.green)
+pm_band_b = pm_geotiff.GetRasterBand(pm_args.blue)
 
 # retrieve raster no data value #
 pm_nodata = pm_band_r.GetNoDataValue()
@@ -110,8 +112,7 @@ if pm_nodata is not None:
 print( 'Processing file : ' + os.path.basename( pm_args.input ) + '...' )
 
 # process file #
-for i in tqdm(range(100)):
-    pm_assign_rgb( pm_args.input, pm_args.output, pm_raster_r, pm_raster_g, pm_raster_b, pm_x, pm_y, pm_pw, pm_ph, pm_nodata, pm_width, pm_height )
+pm_assign_rgb( pm_args.input, pm_args.output, pm_raster_r, pm_raster_g, pm_raster_b, pm_x, pm_y, pm_pw, pm_ph, pm_nodata, pm_width, pm_height )
 
 # exit script #
 sys.exit( 'Done' )
