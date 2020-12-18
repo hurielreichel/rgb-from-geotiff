@@ -49,3 +49,12 @@ Copyright (c) 2020 Republic and Canton of Geneva
 
 This program is licensed under the terms of the GNU GPLv3. Documentation and illustrations are licensed under the terms of the CC BY-NC-SA.
 
+# Dependencies
+
+Python 3.8.5 of superior
+
+Packages may be installed either by pip or conda
+
+* GDAL 3.1.3
+
+* Numpy 
