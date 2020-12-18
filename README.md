@@ -55,6 +55,6 @@ Python 3.8.5 of superior
 
 Packages may be installed either by pip or conda
 
-* GDAL 3.1.3
+* GDAL 3.2.0
 
-* Numpy 
+* Numpy 1.19.4
